@@ -67,3 +67,15 @@ Content-Type: application/json
 ```
  https://jwt.io/#debugger-io?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwZjgwYTZmOS0xNWVlLTQ3YWEtYmYzMC1lMzU4YmY1ZTE4ZjIiLCJuYW1lIjoidXNlcm5hbWUiLCJpYXQiOjE1MTYyMzkwMjJ9.Jkl_ogSDKvkPlfiiaW282sTqkgiZmvw4P0FH7026egI
 
+### Получение рейтинга текущего пользователя
+
+``` http
+GET /me
+Authorization: token
+
+### Success
+200 Ok
+
+{"username": "string", "rating": 0}
+```
+
