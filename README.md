@@ -161,7 +161,7 @@ Authorization: application/json
   "player1": {"username": "string", "rating": 0} | null,
   "player2": {"username": "string", "rating": 0} | null,
   "field": "-xo-o-x--",
-  "turn: 2,
+  "turn": 2,
 }
 
 # Incorrect authorization
