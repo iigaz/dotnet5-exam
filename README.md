@@ -36,13 +36,13 @@ Content-Type: application/json
 
 {"username": "string", "password": "string"}
 
-### Success
+# Success
 200 Ok
 
-### User Exists
+# User Exists
 403 Forbidden
 
-### Bad json
+# Bad json
 400 Bad Request
 ```
 
@@ -54,15 +54,15 @@ Content-Type: application/json
 
 {"username": "string", "password": "string"}
 
-### Success
+# Success
 200 Ok
 
 {"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwZjgwYTZmOS0xNWVlLTQ3YWEtYmYzMC1lMzU4YmY1ZTE4ZjIiLCJuYW1lIjoidXNlcm5hbWUiLCJpYXQiOjE1MTYyMzkwMjJ9.Jkl_ogSDKvkPlfiiaW282sTqkgiZmvw4P0FH7026egI"}
 
-### User does not exist or password is incorrect
+# User does not exist or password is incorrect
 404 Not Found
 
-### Bad json
+# Bad json
 400 Bad Request
 ```
  https://jwt.io/#debugger-io?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwZjgwYTZmOS0xNWVlLTQ3YWEtYmYzMC1lMzU4YmY1ZTE4ZjIiLCJuYW1lIjoidXNlcm5hbWUiLCJpYXQiOjE1MTYyMzkwMjJ9.Jkl_ogSDKvkPlfiiaW282sTqkgiZmvw4P0FH7026egI
@@ -73,9 +73,31 @@ Content-Type: application/json
 GET /me
 Authorization: token
 
-### Success
+# Success
 200 Ok
 
 {"username": "string", "rating": 0}
+
+# Incorrect authorization
+401 Unauthorized
 ```
 
+### Список игр
+
+``` http
+# Получить список игр на странице 1 (отсчет с единицы), если считать что всего 20 элементов на каждой странице
+GET /games?page=1&pagesize=20
+Authorization: token
+
+# Success
+200 Ok
+
+{
+  "page": 1,
+  "maxPage": 5,
+  "content": [{"id": "guid", "status": "open|ongoing|completed", "createdAt": "datetime", "maxRating": 10, "creator": "string"}]
+}
+
+# Incorrect authorization
+401 Unauthorized
+```
