@@ -7,11 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Games\Commands\" />
-        <Folder Include="Games\Queries\" />
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\XoDotNet.Domain\XoDotNet.Domain.csproj"/>
         <ProjectReference Include="..\XoDotNet.Infrastructure\XoDotNet.Infrastructure.csproj"/>
     </ItemGroup>
