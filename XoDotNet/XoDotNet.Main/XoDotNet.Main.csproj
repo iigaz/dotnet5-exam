@@ -7,11 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.12"/>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.12"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0"/>
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\XoDotNet.Features\XoDotNet.Features.csproj"/>
         <ProjectReference Include="..\XoDotNet.Mediator\XoDotNet.Mediator.csproj"/>
     </ItemGroup>
 

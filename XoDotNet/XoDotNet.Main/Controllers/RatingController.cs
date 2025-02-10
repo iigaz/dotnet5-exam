@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace XoDotNet.Main.Controllers;
 
 [ApiController]
+[Authorize]
 public class RatingController : ControllerBase
 {
     [HttpGet("rating")]
