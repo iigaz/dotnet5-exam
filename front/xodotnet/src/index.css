@@ -1,0 +1,10 @@
+:root {
+    font-family: "Roboto", serif;
+    font-weight: 400;
+
+    background-color: #213040;
+}
+
+html, body, #root, .App {
+    height: 100%;
+}

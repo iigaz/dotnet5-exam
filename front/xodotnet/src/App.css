@@ -1,0 +1,15 @@
+#root {
+  --accent-color: #101B27;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  --accent-color: #101B27;
+}
+
+main {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
