@@ -20,9 +20,9 @@
 | Player1: User?            |
 | Player2: User?            |
 | Field: string             |
-| Player1Turn: bool         |
+| Turn: int                 |
 
-Player1 - всегда крестик. Player2 - всегда нолик. При создании игры Player1Turn присваивается на рандом. True - на данный моменд ходят крестики, false - на данный моменд ходят нолики.
+Player1 - всегда крестик. Player2 - всегда нолик. При создании игры Turn == 1 когда ходят крестики, 2 когда ходят нолики, 0 если никто не может ходить.
 
 Field хранится как строка вида "-xo-o-x--", где `-` - пустое место, `x` - крестик, `o` - нолик, каждые три символа - соответствующая строка 2d поля.
 
@@ -161,7 +161,7 @@ Authorization: application/json
   "player1": {"username": "string", "rating": 0} | null,
   "player2": {"username": "string", "rating": 0} | null,
   "field": "-xo-o-x--",
-  "player1_turn: false,
+  "turn: 2,
 }
 
 # Incorrect authorization
@@ -174,7 +174,12 @@ Authorization: application/json
 
 ```
 # Получение нового состояния игры от сервера
-< update_state(field, player1_turn, player1, player2)
+< update_state(field, turn, player1, player2)
+
+# Получения объявления победителем
+< declare_winner(winner, player1, player2)
+# winner имеет такие же значения как и turn, но 0 - ничья
+# после победы таймер 3 секунды на бэкенде, и после этого он посылает update_state с новой игрой
 
 ## Комманды бэка (бэкенд в ответ всем наблюдателям пришлет update_state если команда была завершена успешно)
 
