@@ -3,16 +3,32 @@ import Button from "../../components/general/button/button.tsx";
 import GamesList, {
   GamesListProps,
 } from "../../components/gamesList/gamesList.tsx";
+import RatingModalWindow from "../../components/mainPageModalWindows/ratingModalWindow/ratingModalWindow.tsx";
+import { useState } from "react";
+import CreateNewGameModalWindow from "../../components/mainPageModalWindows/createNewGameModalWindow/createNewGameModalWindow.tsx";
 
 function MainPage() {
+  const [ratingWindowOpen, setRatingWindowOpen] = useState(false);
+  const [createGameWindowOpen, setCreateGameWindowOpen] = useState(false);
+
   return (
     <div className={classes.container}>
       <div className={classes.gameAndRating}>
         <h1>Tic Tac Toe</h1>
-        <Button>Рейтинг</Button>
-        <Button>Создать игру</Button>
+        <Button onClick={() => setRatingWindowOpen(true)}>Рейтинг</Button>
+        <Button onClick={() => setCreateGameWindowOpen(true)}>
+          Создать игру
+        </Button>
       </div>
       <GamesList {...tempList} />
+      <RatingModalWindow
+        open={ratingWindowOpen}
+        onClose={() => setRatingWindowOpen(false)}
+      />
+      <CreateNewGameModalWindow
+        open={createGameWindowOpen}
+        onClose={() => setCreateGameWindowOpen(false)}
+      />
     </div>
   );
 }
