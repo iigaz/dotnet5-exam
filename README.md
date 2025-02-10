@@ -19,6 +19,12 @@
 | CreatedDateTime: DateTime |
 | Player1: User?            |
 | Player2: User?            |
+| Field: string             |
+| Player1Turn: bool         |
+
+Player1 - всегда крестик. Player2 - всегда нолик. При создании игры Player1Turn присваивается на рандом. True - на данный моменд ходят крестики, false - на данный моменд ходят нолики.
+
+Field хранится как строка вида "-xo-o-x--", где `-` - пустое место, `x` - крестик, `o` - нолик, каждые три символа - соответствующая строка 2d поля.
 
 Состояния игры:
 
@@ -141,3 +147,47 @@ Location: /games/0f80a6f9-15ee-47aa-bf30-e358bf5e18f2
 # Something wrong with json
 400 Bad Request
 ```
+
+### Просмотр игры
+
+``` http
+GET /games/0f80a6f9-15ee-47aa-bf30-e358bf5e18f2
+Authorization: application/json
+
+# Success
+200 Ok
+
+{
+  "player1": {"username": "string", "rating": 0} | null,
+  "player2": {"username": "string", "rating": 0} | null,
+  "field": "-xo-o-x--",
+  "player1_turn: false,
+}
+
+# Incorrect authorization
+401 Unauthorized
+```
+
+Сама игра выполняется через signalR.
+
+### Ход игры (signalr)
+
+```
+# Получение нового состояния игры от сервера
+< update_state(field, player1_turn, player1, player2)
+
+## Комманды бэка (бэкенд в ответ всем наблюдателям пришлет update_state если команда была завершена успешно)
+
+> place_mark(gameId, x, y)
+# Поставить марку (крестик или нолик решит бэк) в координатах x, y (оба с нуля; x - номер столбца; y - номер строки)
+
+> spectate(gameId)
+# Подписаться на обновления состояния игры
+
+> join(gameId)
+# Присоедитится
+
+> leave(gameId)
+# Отписаться от обновлений состояния и покинуть игру (если в игре)
+```
+
