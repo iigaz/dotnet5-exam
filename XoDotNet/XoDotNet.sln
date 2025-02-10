@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XoDotNet.Domain", "XoDotNet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XoDotNet.DataAccess", "XoDotNet.DataAccess\XoDotNet.DataAccess.csproj", "{75BCC9AC-C48C-42A4-97B0-A594EEFF0BF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XoDotNet.Mediator", "XoDotNet.Mediator\XoDotNet.Mediator.csproj", "{2CE8662E-A608-4695-9D3E-433CF7733B89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{75BCC9AC-C48C-42A4-97B0-A594EEFF0BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75BCC9AC-C48C-42A4-97B0-A594EEFF0BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75BCC9AC-C48C-42A4-97B0-A594EEFF0BF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CE8662E-A608-4695-9D3E-433CF7733B89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CE8662E-A608-4695-9D3E-433CF7733B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CE8662E-A608-4695-9D3E-433CF7733B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CE8662E-A608-4695-9D3E-433CF7733B89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
