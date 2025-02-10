@@ -1,0 +1,38 @@
+.cardContainer {
+    display: flex;
+    flex-direction: row;
+    color: #ffffff55;
+    border: 0.01rem solid #6B7885;
+    border-radius: 0.7rem;
+    margin: 1rem;
+    align-items: center;
+}
+
+.cardContainer p{
+    margin: 10px;
+}
+
+.cardContainer button{
+    display: inline-block; /* or 'inline-flex' */
+    width: auto;
+    height: min-content;
+    margin: 1rem;
+}
+
+.leftSideCardInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rightSideCardInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.buttonWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
