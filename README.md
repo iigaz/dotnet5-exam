@@ -107,7 +107,7 @@ Authorization: token
 ### Рейтинг
 
 ``` http
-# Получить список игр на странице 1 (отсчет с единицы), если считать что всего 20 элементов на каждой странице
+# топ-10 пользователей по рейтингу
 GET /rating?limit=10
 Authorization: token
 
@@ -120,3 +120,24 @@ Authorization: token
 401 Unauthorized
 ```
 
+### Создание игры
+
+``` http
+POST /games
+Authorization: token
+Content-Type: application/json
+
+{"maxRating": 10}
+
+# Success
+201 Created
+Location: /games/0f80a6f9-15ee-47aa-bf30-e358bf5e18f2
+
+{"id": "0f80a6f9-15ee-47aa-bf30-e358bf5e18f2"}
+
+# Incorrect authorization
+401 Unauthorized
+
+# Something wrong with json
+400 Bad Request
+```
