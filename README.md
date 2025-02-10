@@ -9,7 +9,8 @@
 | Id: Guid             |
 | Username: string     |
 | PasswordHash: string |
-| Rating: int          |
+
+Отдельно в Monga: `Rating: int`
 
 
 | Game                      |
@@ -172,6 +173,8 @@ Authorization: application/json
 
 ### Ход игры (signalr)
 
+Эндпоинт хаба: `/games/hub`
+
 ```
 # Получение нового состояния игры от сервера
 < update_state(field, turn, player1, player2)
@@ -195,4 +198,14 @@ Authorization: application/json
 > leave(gameId)
 # Отписаться от обновлений состояния и покинуть игру (если в игре)
 ```
+
+## Архитектура бэкенда
+
+Чистая архитектура + CQRS:
+
+- `XoDotNet.Main` - слой представления (контроллеры и хаб)
+- `XoDotNet.Features` - слой бизнес-логики (здесь используется CQRS)
+- `XoDotNet.Domain` - слой доменных сущностей
+- `XoDotNet.Infrastructure` - слой инфраструктуры с самописным медиатором
+- `XoDotNet.DataAccess` - слой репозиториев и работы с EF
 
