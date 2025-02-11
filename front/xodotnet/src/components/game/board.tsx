@@ -1,5 +1,6 @@
 import classes from "./board.module.css";
 import Tile from "./tile.tsx";
+import Strike from "./strike.tsx";
 
 function Board(props: BoardProps) {
   return (
@@ -12,6 +13,7 @@ function Board(props: BoardProps) {
           bottomBorder={index < 6}
         />
       ))}
+      <Strike strikeClass={props.strikeClass} />
     </div>
   );
 }
@@ -19,6 +21,7 @@ function Board(props: BoardProps) {
 export default Board;
 
 export interface BoardProps {
+  strikeClass: string;
   tileStates: Array<string | null>;
   handleTileClick: (index: number) => void;
 }

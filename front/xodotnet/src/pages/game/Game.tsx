@@ -1,4 +1,5 @@
 import classes from "./Game.module.css";
+import strikeClasses from "../../components/game/strike.module.css";
 import Board from "../../components/game/board.tsx";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,6 +16,19 @@ import WinnerMessage from "../../components/game/winnerMessage.tsx";
 const PLAYER_1 = "x";
 const PLAYER_2 = "o";
 
+const winningCombinationForStrike = [
+  { combination: [0, 1, 2], strikeClass: strikeClasses.strikeRow1 },
+  { combination: [3, 4, 5], strikeClass: strikeClasses.strikeRow2 },
+  { combination: [6, 7, 8], strikeClass: strikeClasses.strikeRow3 },
+
+  { combination: [0, 3, 6], strikeClass: strikeClasses.strikeColumn1 },
+  { combination: [1, 4, 7], strikeClass: strikeClasses.strikeColumn2 },
+  { combination: [2, 5, 8], strikeClass: strikeClasses.strikeColumn3 },
+
+  { combination: [0, 4, 8], strikeClass: strikeClasses.strikeDiagonal1 },
+  { combination: [2, 4, 6], strikeClass: strikeClasses.strikeDiagonal2 },
+];
+
 function Game() {
   const { id } = useParams();
   const navigator = useNavigate();
@@ -24,6 +38,8 @@ function Game() {
 
   const [gameState, setGameState] = useState<GameStateDto | null>(null);
   const [tiles, setTiles] = useState(Array<string | null>(9).fill(null));
+  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [strikeClass, setStrikeClass] = useState<string>("");
 
   useEffect(() => {
     api
@@ -31,6 +47,7 @@ function Game() {
       .then((response) => {
         setGameState(response.data);
         setTiles(fieldInfoIntoTiles(response.data.field));
+        setGameOver(false);
       })
       .catch((error: AxiosError<any, any>) => {
         if (!error.response) {
@@ -55,6 +72,7 @@ function Game() {
     const gameClient = gamesHubClientConnection(connection);
     return gameClient.on.ReceiveGameState((gameState) => {
       setGameState(gameState);
+      setGameOver(false);
       setTiles(fieldInfoIntoTiles(gameState.field));
     });
   }, [connection]);
@@ -69,6 +87,20 @@ function Game() {
         player1: winnerDeclaration.player1,
         player2: winnerDeclaration.player2,
       });
+      setGameOver(true);
+      for (const { combination, strikeClass } of winningCombinationForStrike) {
+        const tileValue1 = tiles[combination[0]];
+        const tileValue2 = tiles[combination[1]];
+        const tileValue3 = tiles[combination[2]];
+
+        if (
+          tileValue1 !== null &&
+          tileValue1 === tileValue2 &&
+          tileValue2 === tileValue3
+        ) {
+          setStrikeClass(strikeClass);
+        }
+      }
     });
   }, [connection]);
 
@@ -106,14 +138,20 @@ function Game() {
             )}
           </div>
           <h1>
-            {gameState.turn === null ? (
-              <>Ваш ход за крестик</>
-            ) : (
+            {gameOver ? (
               <WinnerMessage
                 winner={gameState.turn}
                 player1={gameState.player1!}
                 player2={gameState.player2!}
               />
+            ) : (
+              <>
+                {gameState.turn == 1 ? (
+                  <>Ваш ход за крестик</>
+                ) : (
+                  <>{`${gameState.player2!.username}`} ходит за нолик</>
+                )}
+              </>
             )}
           </h1>
           <div
@@ -136,7 +174,11 @@ function Game() {
         </div>
       )}
 
-      <Board handleTileClick={handleTitleClick} tileStates={tiles} />
+      <Board
+        handleTileClick={handleTitleClick}
+        tileStates={tiles}
+        strikeClass={strikeClass}
+      />
     </div>
   );
 }

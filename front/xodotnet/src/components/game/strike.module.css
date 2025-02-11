@@ -1,0 +1,49 @@
+.strike {
+    position: absolute;
+    background-color: darkorange;
+}
+
+.strikeRow1 {
+    width: 100%;
+    height: 4px;
+    top: 15%;
+}
+.strikeRow2 {
+    width: 100%;
+    height: 4px;
+    top: 48%;
+}
+.strikeRow3 {
+    width: 100%;
+    height: 4px;
+    top: 83%;
+}
+.strikeColumn1 {
+    height: 100%;
+    width: 4px;
+    left: 15%;
+}
+.strikeColumn2 {
+    height: 100%;
+    width: 4px;
+    left: 48%;
+}
+.strikeColumn3 {
+    height: 100%;
+    width: 4px;
+    left: 83%;
+}
+.strikeDiagonal1 {
+    width: 90%;
+    height: 4px;
+    top: 50%;
+    left: 5%;
+    transform: skewY(45deg);
+}
+.strikeDiagonal2 {
+    width: 90%;
+    height: 4px;
+    top: 50%;
+    left: 5%;
+    transform: skewY(-45deg);
+}
