@@ -8,7 +8,7 @@ function GameInfoCard(props: GameInfoCardProps) {
     <div className={classes.cardContainer}>
       <div className={classes.leftSideCardInfo}>
         <p>{props.creator}</p>
-        <p>{props.createdAt}</p>
+        <p>{new Date(props.createdAt).toLocaleString()}</p>
         <p>{props.id}</p>
       </div>
       <div className={classes.rightSideCardInfo}>
