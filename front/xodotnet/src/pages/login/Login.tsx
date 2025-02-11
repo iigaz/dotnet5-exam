@@ -17,6 +17,7 @@ function Login() {
     api
       .post("/login", { username: username, password: password })
       .then((response) => {
+        setErrorMessage(null);
         localStorage.setItem("access_token", response.data.access_token);
         navigator("/games");
       })

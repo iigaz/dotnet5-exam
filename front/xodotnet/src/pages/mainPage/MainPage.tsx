@@ -1,26 +1,66 @@
 import classes from "./MainPage.module.css";
+import exitIcon from "../../assets/exitIcon.svg";
 import Button from "../../components/general/button/button.tsx";
 import GamesList, {
   GamesListProps,
 } from "../../components/gamesList/gamesList.tsx";
-import RatingModalWindow from "../../components/mainPageModalWindows/ratingModalWindow/ratingModalWindow.tsx";
-import { useState } from "react";
-import CreateNewGameModalWindow from "../../components/mainPageModalWindows/createNewGameModalWindow/createNewGameModalWindow.tsx";
+import RatingModalWindow from "../../components/mainPage/mainPageModalWindows/ratingModalWindow/ratingModalWindow.tsx";
+import { useEffect, useState } from "react";
+import CreateNewGameModalWindow from "../../components/mainPage/mainPageModalWindows/createNewGameModalWindow/createNewGameModalWindow.tsx";
+import UserInfo, {
+  UserInfoProps,
+} from "../../components/mainPage/userInfo/userInfo.tsx";
+import api from "../../config/axios.ts";
+import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 
 function MainPage() {
+  const navigator = useNavigate();
+
+  const [userInfo, setUserInfo] = useState<UserInfoProps | null>(null);
   const [ratingWindowOpen, setRatingWindowOpen] = useState(false);
   const [createGameWindowOpen, setCreateGameWindowOpen] = useState(false);
 
+  const handleExit = () => {
+    localStorage.removeItem("access_token");
+    delete api.defaults.headers.common["Authorization"];
+    navigator("/auth");
+  };
+
+  useEffect(() => {
+    api
+      .get("/me")
+      .then((response) => setUserInfo(response.data))
+      .catch((error: AxiosError<any, any>) => {
+        if (!error.response) {
+          setUserInfo(null);
+        } else if (error.response.status === 401) {
+          navigator("/auth");
+        }
+      });
+  }, []);
+
   return (
-    <div className={classes.container}>
-      <div className={classes.gameAndRating}>
-        <h1>Tic Tac Toe</h1>
-        <Button onClick={() => setRatingWindowOpen(true)}>Рейтинг</Button>
-        <Button onClick={() => setCreateGameWindowOpen(true)}>
-          Создать игру
-        </Button>
+    <>
+      <div className={classes.container}>
+        <div className={classes.gameAndRating}>
+          <h1>Tic Tac Toe</h1>
+          <Button onClick={() => setRatingWindowOpen(true)}>Рейтинг</Button>
+          <Button onClick={() => setCreateGameWindowOpen(true)}>
+            Создать игру
+          </Button>
+          <div className={classes.exitButtonContainer}>
+            <Button onClick={handleExit}>
+              <div className={classes.exitButton}>
+                <span>Выйти</span>
+                <img src={exitIcon} className={classes.exitIcon} />
+              </div>
+            </Button>
+          </div>
+        </div>
+        <UserInfo {...userInfo} />
+        <GamesList {...tempList} />
       </div>
-      <GamesList {...tempList} />
       <RatingModalWindow
         open={ratingWindowOpen}
         onClose={() => setRatingWindowOpen(false)}
@@ -29,7 +69,7 @@ function MainPage() {
         open={createGameWindowOpen}
         onClose={() => setCreateGameWindowOpen(false)}
       />
-    </div>
+    </>
   );
 }
 

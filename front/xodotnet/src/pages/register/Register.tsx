@@ -27,6 +27,7 @@ function Register() {
     api
       .post("/register", { username: username, password: password })
       .then((_) => {
+        setErrorMessage(null);
         navigator("/login");
       })
       .catch((error: AxiosError<any, any>) => {
