@@ -33,7 +33,7 @@ public class GamesController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new CreateGameCommand(username, dto.MaxRating));
         if (result.IsFailure)
             return result.Error.ToActionResult();
-        return Ok(result.Value);
+        return CreatedAtAction(nameof(GetGame), new { id = result.Value?.Id }, result.Value);
     }
 
     [HttpGet("{id:guid}")]

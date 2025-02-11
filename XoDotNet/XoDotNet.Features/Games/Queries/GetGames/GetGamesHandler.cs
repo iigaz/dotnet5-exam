@@ -28,7 +28,7 @@ public class GetGamesHandler(IGameRepository gameRepository)
             .Select(game =>
                 new GetGamesDto(
                     game.Id,
-                    game.Status,
+                    game.Status.ToString().ToLowerInvariant(),
                     game.CreatedDateTime,
                     game.MaxRating,
                     game.Creator.Username))
