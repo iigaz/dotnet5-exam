@@ -4,7 +4,7 @@ import classes from "../createNewGameModalWindow/createNewGameModalWindow.module
 import closeButton from "../../../../assets/closeButton.svg";
 import InputField from "../../../general/inputField/inputField.tsx";
 import Button from "../../../general/button/button.tsx";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import api from "../../../../config/axios.ts";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
@@ -58,14 +58,14 @@ function CreateNewGameModalWindow(props: DialogProps) {
           </div>
           <form
             action="post"
-            onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+            onSubmit={(e: FormEvent<HTMLFormElement>) => {
               e.preventDefault();
               handleSubmit(maxRating);
             }}
           >
             <div className={classes.inputFormContainer}>
               <InputField
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setMaxRating(Number(e.target.value))
                 }
                 placeholder="Макс. кол-во рейтинга"

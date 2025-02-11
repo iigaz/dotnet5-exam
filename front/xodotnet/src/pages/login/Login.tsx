@@ -1,7 +1,7 @@
 import classes from "./Login.module.css";
 import InputField from "../../components/general/inputField/inputField.tsx";
 import Button from "../../components/general/button/button.tsx";
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../config/axios.ts";
 import { AxiosError } from "axios";
@@ -41,7 +41,7 @@ function Login() {
       <h1>Tic Tac Toe</h1>
       <form
         action="post"
-        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+        onSubmit={(e: FormEvent<HTMLFormElement>) => {
           e.preventDefault();
           handleSubmit(username, password);
         }}
@@ -49,14 +49,14 @@ function Login() {
         <div className={classes.formContainer}>
           <div className={classes.inputForm}>
             <InputField
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setUsername(e.target.value)
               }
               placeholder="Имя пользователя"
             />
             <InputField
               type="password"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
               placeholder="Пароль"

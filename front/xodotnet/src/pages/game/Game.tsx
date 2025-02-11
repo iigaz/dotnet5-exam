@@ -92,6 +92,7 @@ function Game() {
           turn: turn,
         });
         setGameOver(false);
+        setStrikeClass("");
         setTiles(fieldInfoIntoTiles(field));
       },
     );
@@ -119,13 +120,11 @@ function Game() {
       const tileValue2 = tiles[combination[1]];
       const tileValue3 = tiles[combination[2]];
 
-      console.log(tileValue1, tileValue2, tileValue3);
       if (
         tileValue1 !== null &&
         tileValue1 === tileValue2 &&
         tileValue2 === tileValue3
       ) {
-        console.log(true);
         setStrikeClass(strikeClass);
       }
     }
@@ -239,10 +238,4 @@ export interface GameStateDto {
   player2: UserInfoProps | null;
   field: string;
   turn: number;
-}
-
-export interface WinnerDeclarationDto {
-  winner: number;
-  player1: UserInfoProps;
-  player2: UserInfoProps;
 }

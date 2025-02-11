@@ -5,11 +5,11 @@ function TurnMessage(props: TurnMessageProps) {
     return <>Ожидание противника</>;
   } else if (props.turn == 1 && props.player1.username === props.currentUser) {
     return <>Ваш ход за крестик</>;
-  } else if (props.turn === 1 && props.player2.username === props.currentUser) {
+  } else if (props.turn === 1 && props.player1.username !== props.currentUser) {
     return <>{`${props.player1!.username}`} ходит за крестик</>;
   } else if (props.turn == 2 && props.player2.username === props.currentUser) {
     return <>Ваш ход за нолик</>;
-  } else if (props.turn === 2 && props.player1.username === props.currentUser) {
+  } else if (props.turn === 2 && props.player2.username !== props.currentUser) {
     return <>{`${props.player2!.username}`} ходит за нолик</>;
   }
 }

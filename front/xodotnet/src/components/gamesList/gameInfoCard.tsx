@@ -2,6 +2,7 @@ import classes from "./gameInfoCard.module.css";
 import { UUID } from "crypto";
 import Button from "../general/button/button.tsx";
 import { Link } from "react-router-dom";
+import { FC } from "react";
 
 function GameInfoCard(props: GameInfoCardProps) {
   return (
@@ -51,6 +52,6 @@ const statusMap: Record<Status, string> = {
   completed: "Завершена",
 };
 
-const StatusComponent: React.FC<{ status: Status }> = ({ status }) => {
+const StatusComponent: FC<{ status: Status }> = ({ status }) => {
   return <p>Статус игры: {statusMap[status]}</p>;
 };

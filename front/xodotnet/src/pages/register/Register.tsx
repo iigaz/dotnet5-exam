@@ -1,7 +1,7 @@
 import classes from "./Register.module.css";
 import InputField from "../../components/general/inputField/inputField.tsx";
 import Button from "../../components/general/button/button.tsx";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import api from "../../config/axios.ts";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
@@ -45,7 +45,7 @@ function Register() {
       <h1>Tic Tac Toe</h1>
       <form
         action="post"
-        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+        onSubmit={(e: FormEvent<HTMLFormElement>) => {
           e.preventDefault();
           handleSubmit(username, password, passwordConfirmation);
         }}
@@ -53,20 +53,20 @@ function Register() {
         <div className={classes.formContainer}>
           <div className={classes.inputForm}>
             <InputField
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setUsername(e.target.value)
               }
               placeholder="Имя пользователя"
             />
             <InputField
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
               type="password"
               placeholder="Пароль"
             />
             <InputField
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setPasswordConfirmation(e.target.value)
               }
               type="password"
