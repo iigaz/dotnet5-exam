@@ -4,6 +4,7 @@ import Authorization from "./pages/authorization/Authorization.tsx";
 import Login from "./pages/login/Login.tsx";
 import Register from "./pages/register/Register.tsx";
 import MainPage from "./pages/mainPage/MainPage.tsx";
+import Game from "./pages/game/Game.tsx";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/games" element={<MainPage />} />
+        <Route path="/games/*" element={<Game />} />
       </Routes>
     </>
   );

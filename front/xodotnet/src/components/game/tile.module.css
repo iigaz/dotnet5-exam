@@ -1,0 +1,13 @@
+.tile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightBorder{
+    border-right: 0.5rem solid #6B7885;
+}
+
+.bottomBorder{
+    border-bottom: 0.5rem solid #6B7885;;
+}
