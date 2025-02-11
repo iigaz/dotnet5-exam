@@ -13,7 +13,7 @@
       POSTGRES_DB: xodotnet
   
   xodotnet.rabbitmq:
-    image: rabbitmq:3-alpine
+    image: masstransit/rabbitmq:latest
     environment:
       RABBITMQ_DEFAULT_USER: username
       RABBITMQ_DEFAULT_PASS: incorrect
