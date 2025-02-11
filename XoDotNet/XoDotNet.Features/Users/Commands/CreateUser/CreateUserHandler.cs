@@ -22,7 +22,7 @@ public class CreateUserHandler(IUserRepository userRepository, IPasswordService 
             PasswordHash = await passwordService.HashPassword(request.Password),
             Username = request.Username
         };
-        await userRepository.CreateUser(user);
+        await userRepository.CreateUserAsync(user);
         return Result<CreateUserDto>.Success(new CreateUserDto());
     }
 }

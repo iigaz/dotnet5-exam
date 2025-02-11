@@ -7,4 +7,6 @@ public interface IGameRepository
     IQueryable<Game> GetGamesAsyncQueryable();
 
     Task<GameState?> GetGameStateByIdAsync(Guid id);
+
+    Task<Game> CreateGameAsync(User creator, int maxRating);
 }

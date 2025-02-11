@@ -12,7 +12,7 @@ public class UserRepository(AppDbContext db, IMongoCollection<UserRating> userRa
         return await db.Users.FirstOrDefaultAsync(user => user.Username == username);
     }
 
-    public async Task CreateUser(User user)
+    public async Task CreateUserAsync(User user)
     {
         var newUser = await db.Users.AddAsync(user);
         await db.SaveChangesAsync();
@@ -33,7 +33,7 @@ public class UserRepository(AppDbContext db, IMongoCollection<UserRating> userRa
         return await userTask;
     }
 
-    public async Task<List<UserRating>> GetTopRatings(int limit)
+    public async Task<List<UserRating>> GetTopRatingsAsync(int limit)
     {
         var users = await userRatingCollection.Find(_ => true).SortByDescending(user => user.Rating).Limit(limit)
             .ToListAsync();
