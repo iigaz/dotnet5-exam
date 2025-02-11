@@ -14,6 +14,8 @@ import { gamesHubClientConnection } from "../../components/game/gamesHubClientCo
 import WinnerMessage from "../../components/game/winnerMessage.tsx";
 import Button from "../../components/general/button/button.tsx";
 import exitIcon from "../../assets/exitIcon.svg";
+import getUsernameFromAccessToken from "../../helpers/getDecodedAccessToken.ts";
+import TurnMessage from "../../components/game/turnMessage.tsx";
 
 const winningCombinationForStrike = [
   { combination: [0, 1, 2], strikeClass: strikeClasses.strikeRow1 },
@@ -39,6 +41,7 @@ function Game() {
   const [tiles, setTiles] = useState(Array<string | null>(9).fill(null));
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [strikeClass, setStrikeClass] = useState<string>("");
+  const [currentUser, setCurrentUser] = useState<string>();
 
   useEffect(() => {
     api
@@ -59,6 +62,7 @@ function Game() {
           navigator("/auth");
         }
       });
+    setCurrentUser(getUsernameFromAccessToken());
   }, [id]);
 
   useEffect(() => {
@@ -105,25 +109,27 @@ function Game() {
           player2: player2,
         });
         setGameOver(true);
-        for (const {
-          combination,
-          strikeClass,
-        } of winningCombinationForStrike) {
-          const tileValue1 = tiles[combination[0]];
-          const tileValue2 = tiles[combination[1]];
-          const tileValue3 = tiles[combination[2]];
-
-          if (
-            tileValue1 !== null &&
-            tileValue1 === tileValue2 &&
-            tileValue2 === tileValue3
-          ) {
-            setStrikeClass(strikeClass);
-          }
-        }
       },
     );
   }, [connection]);
+
+  useEffect(() => {
+    for (const { combination, strikeClass } of winningCombinationForStrike) {
+      const tileValue1 = tiles[combination[0]];
+      const tileValue2 = tiles[combination[1]];
+      const tileValue3 = tiles[combination[2]];
+
+      console.log(tileValue1, tileValue2, tileValue3);
+      if (
+        tileValue1 !== null &&
+        tileValue1 === tileValue2 &&
+        tileValue2 === tileValue3
+      ) {
+        console.log(true);
+        setStrikeClass(strikeClass);
+      }
+    }
+  }, [gameOver]);
 
   const handleTitleClick = (index: number) => {
     if (tiles[index] !== null) {
@@ -170,20 +176,16 @@ function Game() {
           <h1>
             {gameOver ? (
               <WinnerMessage
+                currentUser={currentUser}
                 winner={gameState.turn}
                 player1={gameState.player1!}
                 player2={gameState.player2!}
               />
             ) : (
-              <>
-                {gameState.player1 === null || gameState.player2 === null ? (
-                  <>Ожидание противника</>
-                ) : gameState.turn == 1 ? (
-                  <>Ваш ход за крестик</>
-                ) : (
-                  <>{`${gameState.player2!.username}`} ходит за нолик</>
-                )}
-              </>
+              <TurnMessage
+                currentUser={currentUser}
+                {...gameState}
+              ></TurnMessage>
             )}
           </h1>
           <div
