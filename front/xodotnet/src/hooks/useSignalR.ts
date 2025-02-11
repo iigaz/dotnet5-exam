@@ -17,9 +17,7 @@ export default function useSignalR(url: string) {
       .withUrl(url, {
         withCredentials: false,
         transport: HttpTransportType.WebSockets,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
+        accessTokenFactory: () => localStorage.getItem("access_token") ?? "",
       })
       .withAutomaticReconnect()
       .configureLogging(LogLevel.Information)

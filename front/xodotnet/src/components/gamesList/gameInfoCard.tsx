@@ -1,6 +1,7 @@
 import classes from "./gameInfoCard.module.css";
 import { UUID } from "crypto";
 import Button from "../general/button/button.tsx";
+import { Link } from "react-router-dom";
 
 function GameInfoCard(props: GameInfoCardProps) {
   return (
@@ -19,9 +20,13 @@ function GameInfoCard(props: GameInfoCardProps) {
       </div>
       <div className={classes.buttonWrapper}>
         {props.status == "ongoing" ? (
-          <Button>Наблюдать</Button>
+          <Link to={`/games/${props.id}`}>
+            <Button>Наблюдать</Button>
+          </Link>
         ) : (
-          <Button disabled={props.status == "completed"}>Играть</Button>
+          <Link to={`/games/${props.id}`}>
+            <Button disabled={props.status == "completed"}>Играть</Button>
+          </Link>
         )}
       </div>
     </div>
