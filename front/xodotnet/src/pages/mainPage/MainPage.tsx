@@ -97,38 +97,3 @@ function MainPage() {
 }
 
 export default MainPage;
-
-const tempList: GamesListProps = {
-  page: 1,
-  maxPage: 5,
-  content: [
-    {
-      id: "17d289aa-32d3-40af-bcc9-65272a6a692c",
-      status: "open",
-      createdAt: "10.02.2025 19:30:00",
-      maxRating: 10,
-      creator: "string",
-    },
-    {
-      id: "17d289aa-32d3-40af-bcc9-65272a6a692c",
-      status: "ongoing",
-      createdAt: "10.02.2025 19:30:00",
-      maxRating: 10,
-      creator: "string",
-    },
-    {
-      id: "17d289aa-32d3-40af-bcc9-65272a6a692c",
-      status: "ongoing",
-      createdAt: "10.02.2025 19:30:00",
-      maxRating: 10,
-      creator: "string",
-    },
-    {
-      id: "17d289aa-32d3-40af-bcc9-65272a6a692c",
-      status: "completed",
-      createdAt: "10.02.2025 19:30:00",
-      maxRating: 10,
-      creator: "string",
-    },
-  ],
-};

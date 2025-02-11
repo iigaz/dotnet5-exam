@@ -37,6 +37,19 @@
     margin: 8px 0 8px 0;
 }
 
+.joinButtonContainer{
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
+}
+
+.joinButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+}
+
 .exitButtonContainer{
     position: absolute;
     left: 40px;

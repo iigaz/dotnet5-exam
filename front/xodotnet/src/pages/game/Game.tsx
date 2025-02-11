@@ -15,9 +15,6 @@ import WinnerMessage from "../../components/game/winnerMessage.tsx";
 import Button from "../../components/general/button/button.tsx";
 import exitIcon from "../../assets/exitIcon.svg";
 
-const PLAYER_1 = "x";
-const PLAYER_2 = "o";
-
 const winningCombinationForStrike = [
   { combination: [0, 1, 2], strikeClass: strikeClasses.strikeRow1 },
   { combination: [3, 4, 5], strikeClass: strikeClasses.strikeRow2 },
@@ -53,20 +50,15 @@ function Game() {
       })
       .catch((error: AxiosError<any, any>) => {
         if (!error.response) {
-          //TODO редирект на main page?
-
           setGameState(null);
           const newTiles = [...tiles];
           newTiles.fill(null);
           setTiles(newTiles);
+          navigator("/games");
         } else if (error.response.status === 401) {
           navigator("/auth");
         }
       });
-
-    if (!connection) return;
-    const gameClient = gamesHubClientConnection(connection);
-    gameClient.send.Join(id!);
   }, [id]);
 
   useEffect(() => {
@@ -76,6 +68,7 @@ function Game() {
       setGameState(gameState);
       setGameOver(false);
       setTiles(fieldInfoIntoTiles(gameState.field));
+      console.log(gameState);
     });
   }, [connection]);
 
@@ -113,11 +106,13 @@ function Game() {
 
     if (!connection) return;
     const gamesClient = gamesHubClientConnection(connection);
-
-    const newTiles = [...tiles];
-    newTiles[index] = gameState?.turn == 1 ? PLAYER_1 : PLAYER_2;
     gamesClient.send.PlaceMark(id!, index % 3, Math.floor(index / 3));
-    setTiles(newTiles);
+  };
+
+  const handleJoin = () => {
+    if (!connection) return;
+    const gameClient = gamesHubClientConnection(connection);
+    gameClient.send.Join(id!);
   };
 
   const handleExit = () => {
@@ -155,7 +150,9 @@ function Game() {
               />
             ) : (
               <>
-                {gameState.turn == 1 ? (
+                {gameState.player1 === null || gameState.player2 === null ? (
+                  <>Ожидание противника</>
+                ) : gameState.turn == 1 ? (
                   <>Ваш ход за крестик</>
                 ) : (
                   <>{`${gameState.player2!.username}`} ходит за нолик</>
@@ -196,6 +193,13 @@ function Game() {
           </div>
         </Button>
       </div>
+      <div className={classes.joinButtonContainer}>
+        <Button onClick={handleJoin}>
+          <div className={classes.joinButton}>
+            <span>Присоединиться</span>
+          </div>
+        </Button>
+      </div>
     </div>
   );
 }
@@ -214,13 +218,3 @@ export interface WinnerDeclarationDto {
   player1: UserInfoProps;
   player2: UserInfoProps;
 }
-
-const GameStateMock: GameStateDto = {
-  player1: {
-    username: "user1user1",
-    rating: 1000,
-  },
-  player2: null,
-  field: "-x--o--xx",
-  turn: 1,
-};

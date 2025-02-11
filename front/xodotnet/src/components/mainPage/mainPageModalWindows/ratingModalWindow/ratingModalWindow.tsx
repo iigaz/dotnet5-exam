@@ -78,13 +78,3 @@ export interface UserRating {
   username: string;
   rating: number;
 }
-
-// const tempRatingList: UserRating[] = [
-//   { username: "user1", rating: 1004 },
-//   { username: "user2", rating: 103 },
-//   { username: "user3", rating: 102 },
-//   { username: "user4", rating: 101 },
-//   { username: "user5", rating: 100 },
-//   { username: "user6", rating: 99 },
-//   { username: "user7", rating: 99 },
-// ];

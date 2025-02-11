@@ -20,7 +20,11 @@ function CreateNewGameModalWindow(props: DialogProps) {
       .post("/games", { maxRating: maxRating })
       .then((response) => {
         setErrorMessage(null);
-        navigator(`/games/${response.data.id}`);
+        if (response.headers.location) {
+          navigator(response.headers.location);
+        } else {
+          navigator(`/games/${response.data.id}`);
+        }
       })
       .catch((error: AxiosError<any, any>) => {
         if (!error.response) {

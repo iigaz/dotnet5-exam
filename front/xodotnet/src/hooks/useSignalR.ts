@@ -20,7 +20,7 @@ export default function useSignalR(url: string) {
         accessTokenFactory: () => localStorage.getItem("access_token") ?? "",
       })
       .withAutomaticReconnect()
-      .configureLogging(LogLevel.Information)
+      .configureLogging(LogLevel.Debug)
       .build();
 
     connection
