@@ -62,14 +62,24 @@ function Game() {
   }, [id]);
 
   useEffect(() => {
-    if (!connection) return;
+    if (!connection) {
+      return;
+    }
+    const gameClient = gamesHubClientConnection(connection);
+    gameClient.send.Spectate(id!);
+  }, [connection]);
+
+  useEffect(() => {
+    if (!connection) {
+      return;
+    }
     const gameClient = gamesHubClientConnection(connection);
     return gameClient.on.ReceiveGameState(
       (
-        player1: UserInfoProps | null,
-        player2: UserInfoProps | null,
         field: string,
         turn: number,
+        player1: UserInfoProps | null,
+        player2: UserInfoProps | null,
       ) => {
         setGameState({
           player1: player1,

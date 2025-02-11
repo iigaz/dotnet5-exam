@@ -13,10 +13,10 @@ export function gamesHubClientConnection(connection: HubConnection) {
     on: {
       ReceiveGameState: (
         actionsOnReceive: (
-          player1: UserInfoProps | null,
-          player2: UserInfoProps | null,
           field: string,
           turn: number,
+          player1: UserInfoProps | null,
+          player2: UserInfoProps | null,
         ) => void,
       ) => onMethod("UpdateState", actionsOnReceive),
       ReceiveDeclaredWinner: (
