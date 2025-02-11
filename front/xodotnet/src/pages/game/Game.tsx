@@ -64,39 +64,55 @@ function Game() {
   useEffect(() => {
     if (!connection) return;
     const gameClient = gamesHubClientConnection(connection);
-    return gameClient.on.ReceiveGameState((gameState) => {
-      setGameState(gameState);
-      setGameOver(false);
-      setTiles(fieldInfoIntoTiles(gameState.field));
-      console.log(gameState);
-    });
+    return gameClient.on.ReceiveGameState(
+      (
+        player1: UserInfoProps | null,
+        player2: UserInfoProps | null,
+        field: string,
+        turn: number,
+      ) => {
+        setGameState({
+          player1: player1,
+          player2: player2,
+          field: field,
+          turn: turn,
+        });
+        setGameOver(false);
+        setTiles(fieldInfoIntoTiles(field));
+      },
+    );
   }, [connection]);
 
   useEffect(() => {
     if (!connection) return;
     const gameClient = gamesHubClientConnection(connection);
-    return gameClient.on.ReceiveDeclaredWinner((winnerDeclaration) => {
-      setGameState({
-        ...gameState!,
-        turn: winnerDeclaration.winner,
-        player1: winnerDeclaration.player1,
-        player2: winnerDeclaration.player2,
-      });
-      setGameOver(true);
-      for (const { combination, strikeClass } of winningCombinationForStrike) {
-        const tileValue1 = tiles[combination[0]];
-        const tileValue2 = tiles[combination[1]];
-        const tileValue3 = tiles[combination[2]];
+    return gameClient.on.ReceiveDeclaredWinner(
+      (winner: number, player1: UserInfoProps, player2: UserInfoProps) => {
+        setGameState({
+          ...gameState!,
+          turn: winner,
+          player1: player1,
+          player2: player2,
+        });
+        setGameOver(true);
+        for (const {
+          combination,
+          strikeClass,
+        } of winningCombinationForStrike) {
+          const tileValue1 = tiles[combination[0]];
+          const tileValue2 = tiles[combination[1]];
+          const tileValue3 = tiles[combination[2]];
 
-        if (
-          tileValue1 !== null &&
-          tileValue1 === tileValue2 &&
-          tileValue2 === tileValue3
-        ) {
-          setStrikeClass(strikeClass);
+          if (
+            tileValue1 !== null &&
+            tileValue1 === tileValue2 &&
+            tileValue2 === tileValue3
+          ) {
+            setStrikeClass(strikeClass);
+          }
         }
-      }
-    });
+      },
+    );
   }, [connection]);
 
   const handleTitleClick = (index: number) => {

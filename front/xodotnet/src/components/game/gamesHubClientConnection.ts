@@ -1,5 +1,5 @@
 import { HubConnection } from "@microsoft/signalr";
-import { GameStateDto, WinnerDeclarationDto } from "../../pages/game/Game.tsx";
+import { UserInfoProps } from "../mainPage/userInfo/userInfo.tsx";
 
 export function gamesHubClientConnection(connection: HubConnection) {
   const onMethod = (
@@ -11,10 +11,20 @@ export function gamesHubClientConnection(connection: HubConnection) {
   };
   return {
     on: {
-      ReceiveGameState: (actionsOnReceive: (gameState: GameStateDto) => void) =>
-        onMethod("UpdateState", actionsOnReceive),
+      ReceiveGameState: (
+        actionsOnReceive: (
+          player1: UserInfoProps | null,
+          player2: UserInfoProps | null,
+          field: string,
+          turn: number,
+        ) => void,
+      ) => onMethod("UpdateState", actionsOnReceive),
       ReceiveDeclaredWinner: (
-        actionsOnReceive: (winner: WinnerDeclarationDto) => void,
+        actionsOnReceive: (
+          winner: number,
+          player1: UserInfoProps,
+          player2: UserInfoProps,
+        ) => void,
       ) => onMethod("DeclareWinner", actionsOnReceive),
     },
     send: {
