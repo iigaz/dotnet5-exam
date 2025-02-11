@@ -1,0 +1,19 @@
+.button {
+    --button-color: #18BC9C;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    background-color: var(--button-color);
+    font-weight: 600;
+    font-size: 16pt;
+    color: white;
+    border: 0;
+    cursor: pointer;
+    margin: 1rem 0;
+}
+
+.button:disabled {
+    box-shadow: none;
+    background-color: #266155;
+    cursor: inherit;
+    color: #FFFFFF45;
+}

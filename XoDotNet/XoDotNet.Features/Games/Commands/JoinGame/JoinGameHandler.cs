@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using XoDotNet.Domain.Abstractions.Repositories;
 using XoDotNet.Infrastructure.Cqrs.Commands;
 using XoDotNet.Infrastructure.Errors;
@@ -12,9 +13,12 @@ public class JoinGameHandler(IGameRepository gameRepository, IUserRepository use
     {
         var user = await userRepository.GetUserWithRatingByUsernameAsync(request.Username);
         var gameState = await gameRepository.GetGameStateByIdAsync(request.GameId);
-        if (gameState == null || user == null)
+        var game = await gameRepository.GetGamesAsyncQueryable()
+            .FirstOrDefaultAsync(g => g.Id == request.GameId, cancellationToken);
+        if (gameState == null || user == null || game == null)
             return Result.Failure(new NotFoundError("Game or user were not found."));
-
+        if (game.MaxRating < user.Rating)
+            return Result.Failure(new ForbiddenError("Rating too high."));
         if (gameState.Player1 == null && gameState.Player2 == null)
             return Result.Failure(new ForbiddenError("The game is ended."));
 

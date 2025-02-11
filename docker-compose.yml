@@ -1,0 +1,14 @@
+include:
+  - XoDotNet/docker-compose.yml
+
+services:
+  xodotnet.frontend:
+    ports:
+      - 5173:8080
+    build:
+      context: front
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:5000
+    depends_on:
+      - xodotnet.main

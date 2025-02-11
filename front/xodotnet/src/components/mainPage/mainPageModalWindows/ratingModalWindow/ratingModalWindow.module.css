@@ -1,0 +1,46 @@
+.modalWindow{
+    color: #ffffff55;
+    font-size: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modalWindow:first-child{
+    text-align: center;
+}
+
+.modalWindow h3{
+    color: #ffffff;
+    font-size: 3.5rem;
+    font-weight: 400;
+    margin: 24px 0 36px 0;
+}
+
+.ratingContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 0.01rem solid #6B7885;
+    border-radius: 0.7rem;
+}
+
+.ratingLine {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.ratingPlaceAndUsername {
+    display: flex;
+    flex-direction: row;
+}
+
+.closeButton {
+    cursor: pointer;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+}

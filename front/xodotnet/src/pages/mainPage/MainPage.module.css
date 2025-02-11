@@ -1,0 +1,60 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: flex-start;
+    height: 100%;
+    width: 100%;
+}
+
+.gameAndRating{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    height: 100%;
+}
+
+.gameAndRating h1{
+    font-size: 5rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.gameAndRating p{
+    font-size: 1.5rem;
+    margin: 12px 0 12px 0;
+}
+
+.exitButtonContainer{
+    position: absolute;
+    left: 40px;
+    bottom: 40px;
+}
+
+.exitButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.exitIcon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.listWrapperSkeleton {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--accent-color);
+    justify-content: center;
+    align-items: center;
+    min-width: 30vw;
+}

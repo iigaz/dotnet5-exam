@@ -16,6 +16,7 @@ public static class AddEventsExtension
             x.AddConsumer<LeaveGameConsumer>();
             x.AddConsumer<PlaceMarkConsumer>();
             x.AddConsumer<UpdateStateConsumer>();
+            x.AddConsumer<RestartGameConsumer>();
 
             x.AddDelayedMessageScheduler();
 
