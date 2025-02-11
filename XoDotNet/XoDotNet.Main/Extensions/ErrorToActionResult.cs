@@ -9,6 +9,8 @@ public static class ErrorToActionResult
     {
         if (error is NotFoundError notFoundError)
             return new NotFoundObjectResult(new { message = notFoundError.Message });
+        if (error is ForbiddenError)
+            return new ForbidResult();
         return new BadRequestObjectResult(new { message = error?.Message });
     }
 }

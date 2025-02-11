@@ -2,6 +2,8 @@ namespace XoDotNet.Domain.Entities;
 
 public class GameState
 {
+    public Guid Id { get; set; }
+
     public UserRating? Player1 { get; set; }
 
     public UserRating? Player2 { get; set; }
