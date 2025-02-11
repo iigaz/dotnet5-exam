@@ -1,5 +1,6 @@
 import classes from "./ratingModalWindow.module.css";
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import closeButton from "../../../assets/closeButton.svg";
+import { Dialog, DialogContent } from "@mui/material";
 
 function RatingModalWindow(props: DialogProps) {
   return (
@@ -11,21 +12,27 @@ function RatingModalWindow(props: DialogProps) {
           backgroundColor: "var(--accent-color)",
         },
       }}
+      fullWidth
     >
       <DialogContent>
+        <div className={classes.closeButton} onClick={props.onClose}>
+          <img src={closeButton} />
+        </div>
         <div className={classes.modalWindow}>
           <div>
             <h3>Рейтинг</h3>
           </div>
-          {tempRatingList.map((userRating: UserRating, index) => (
-            <div>
-              <div>
-                {index}
-                {userRating.username}
+          <div className={classes.ratingContainer}>
+            {tempRatingList.map((userRating: UserRating, index) => (
+              <div className={classes.ratingLine}>
+                <div className={classes.ratingPlaceAndUsername}>
+                  {index + 1 + ". "}
+                  {userRating.username}
+                </div>
+                <div>{userRating.rating}</div>
               </div>
-              <div>{userRating.rating}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
