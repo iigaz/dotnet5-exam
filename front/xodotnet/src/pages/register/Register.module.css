@@ -8,6 +8,12 @@
     height: 100%;
 }
 
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .inputForm{
     display: flex;
     flex-direction: column;
@@ -23,7 +29,6 @@
     margin: 12px 0 12px 0;
     font-size: 14pt;
     width: 85%;
-
 }
 
 .container h1{
@@ -34,6 +39,15 @@
 .container p{
     font-size: 1.5rem;
     margin: 12px 0 12px 0;
+}
+
+.errorMessage {
+    color: #EE6677;
+}
+
+.errorMessage p{
+    font-size: 1.25rem;
+    text-align: center;
 }
 
 .button{
