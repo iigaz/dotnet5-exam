@@ -2,6 +2,6 @@ using XoDotNet.Infrastructure.Cqrs.Commands;
 
 namespace XoDotNet.Features.Games.Commands.PlaceMark;
 
-public class PlaceMarkCommand : ICommand
+public record PlaceMarkCommand(Guid GameId, string Username, int X, int Y) : ICommand
 {
 }

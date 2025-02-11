@@ -1,6 +1,7 @@
+using XoDotNet.Domain.Entities;
+
 namespace XoDotNet.Features.Users.Queries.VerifyUser;
 
-public class VerifyUserDto
+public record VerifyUserDto(User User)
 {
-    
 }

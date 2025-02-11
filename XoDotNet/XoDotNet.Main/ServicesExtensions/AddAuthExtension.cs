@@ -1,7 +1,10 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using XoDotNet.Main.Abstractions;
 using XoDotNet.Main.Configuration;
+using XoDotNet.Main.Services;
 
 namespace XoDotNet.Main.ServicesExtensions;
 
@@ -30,7 +33,15 @@ public static class AddAuthExtension
                     ValidateIssuerSigningKey = true
                 };
             });
-        services.AddAuthorization();
+
+        var requireAuthPolicy = new AuthorizationPolicyBuilder()
+            .RequireAuthenticatedUser()
+            .Build();
+
+        services.AddAuthorizationBuilder()
+            .SetDefaultPolicy(requireAuthPolicy);
+
+        services.AddSingleton<IJwtIssuerService>(_ => new JwtIssuerService(jwtConfig));
         return services;
     }
 }

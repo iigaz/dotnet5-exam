@@ -1,6 +1,5 @@
 namespace XoDotNet.Features.Users.Queries.GetRatings;
 
-public class GetRatingsDto
+public record GetRatingsDto(string Username, int Rating)
 {
-    
 }

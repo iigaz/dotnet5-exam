@@ -1,3 +1,5 @@
+using XoDotNet.Infrastructure.Errors;
+
 namespace XoDotNet.Infrastructure.Results;
 
 public class Result
@@ -6,12 +8,12 @@ public class Result
     {
         IsSuccess = isSuccessful;
         if (error is not null)
-            Error = error;
+            Error = new Error(error);
     }
 
     public bool IsSuccess { get; }
     public bool IsFailure => !IsSuccess;
-    public string? Error { get; }
+    public Error? Error { get; }
 }
 
 public class Result<TValue> : Result
@@ -26,5 +28,5 @@ public class Result<TValue> : Result
 
     public TValue? Value => IsSuccess
         ? _value
-        : throw new Exception(Error);
+        : throw new Exception(Error?.Message);
 }
