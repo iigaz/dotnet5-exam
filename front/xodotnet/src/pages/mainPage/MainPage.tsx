@@ -13,11 +13,15 @@ import UserInfo, {
 import api from "../../config/axios.ts";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
+import CustomLoader from "../../components/general/loader/customLoader.tsx";
 
 function MainPage() {
   const navigator = useNavigate();
 
   const [userInfo, setUserInfo] = useState<UserInfoProps | null>(null);
+  const [gamesFirstPage, setGamesFirstPage] = useState<GamesListProps | null>(
+    null,
+  );
   const [ratingWindowOpen, setRatingWindowOpen] = useState(false);
   const [createGameWindowOpen, setCreateGameWindowOpen] = useState(false);
 
@@ -34,6 +38,19 @@ function MainPage() {
       .catch((error: AxiosError<any, any>) => {
         if (!error.response) {
           setUserInfo(null);
+        } else if (error.response.status === 401) {
+          navigator("/auth");
+        }
+      });
+  }, []);
+
+  useEffect(() => {
+    api
+      .get("/games?page=1&pagesize=20")
+      .then((response) => setGamesFirstPage(response.data))
+      .catch((error: AxiosError<any, any>) => {
+        if (!error.response) {
+          setGamesFirstPage(tempList);
         } else if (error.response.status === 401) {
           navigator("/auth");
         }
@@ -59,7 +76,13 @@ function MainPage() {
           </div>
         </div>
         <UserInfo {...userInfo} />
-        <GamesList {...tempList} />
+        {gamesFirstPage === null ? (
+          <div className={classes.listWrapperSkeleton}>
+            <CustomLoader />
+          </div>
+        ) : (
+          <GamesList {...gamesFirstPage} />
+        )}
       </div>
       <RatingModalWindow
         open={ratingWindowOpen}

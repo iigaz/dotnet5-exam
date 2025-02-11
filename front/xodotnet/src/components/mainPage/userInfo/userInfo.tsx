@@ -21,6 +21,6 @@ function UserInfo(props: UserInfoProps | null) {
 export default UserInfo;
 
 export interface UserInfoProps {
-  username: string;
-  rating: number;
+  username?: string;
+  rating?: number;
 }

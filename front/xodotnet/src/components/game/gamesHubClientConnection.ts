@@ -1,4 +1,3 @@
-import { UUID } from "crypto";
 import { HubConnection } from "@microsoft/signalr";
 import { GameStateDto, WinnerDeclarationDto } from "../../pages/game/Game.tsx";
 

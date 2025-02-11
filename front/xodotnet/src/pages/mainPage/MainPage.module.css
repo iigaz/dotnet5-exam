@@ -46,3 +46,15 @@
     height: 32px;
     object-fit: contain;
 }
+
+.listWrapperSkeleton {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--accent-color);
+    justify-content: center;
+    align-items: center;
+    min-width: 30vw;
+}
