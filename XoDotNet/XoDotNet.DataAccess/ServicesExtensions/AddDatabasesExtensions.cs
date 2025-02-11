@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using XoDotNet.DataAccess.Configuration;
 using XoDotNet.DataAccess.Repositories;
@@ -41,6 +44,7 @@ public static class AddDatabasesExtensions
 
         services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(postgresConnectionString));
+        BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
         return services;
     }
 }

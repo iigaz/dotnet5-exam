@@ -5,14 +5,15 @@ using XoDotNet.Features.Users.Commands.CreateUser;
 using XoDotNet.Features.Users.Queries.GetRatings;
 using XoDotNet.Features.Users.Queries.GetUser;
 using XoDotNet.Features.Users.Queries.VerifyUser;
+using XoDotNet.Main.Abstractions;
 using XoDotNet.Main.Dto;
 using XoDotNet.Main.Extensions;
-using XoDotNet.Main.Services;
 using XoDotNet.Mediator;
 
 namespace XoDotNet.Main.Controllers;
 
 [ApiController]
+[Authorize]
 public class UsersController(IMediator mediator) : ControllerBase
 {
     [AllowAnonymous]
@@ -27,14 +28,14 @@ public class UsersController(IMediator mediator) : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("login")]
-    public async Task<IActionResult> Login(LoginUserDto dto, [FromServices] JwtIssuerService jwtIssuerService)
+    public async Task<IActionResult> Login(LoginUserDto dto, [FromServices] IJwtIssuerService jwtIssuerService)
     {
         var result = await mediator.Send(new VerifyUserQuery(dto.Username, dto.Password));
         if (result.IsFailure)
             return result.Error.ToActionResult();
         return Ok(new
         {
-            access_token = jwtIssuerService.GetTokenForUser(result.Value!.User)
+            access_token = await jwtIssuerService.GetTokenForUser(result.Value!.User)
         });
     }
 

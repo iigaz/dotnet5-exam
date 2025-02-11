@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using XoDotNet.Features.Games.Commands.CreateGame;
 using XoDotNet.Features.Games.Queries.GetGame;
@@ -11,6 +12,7 @@ namespace XoDotNet.Main.Controllers;
 
 [ApiController]
 [Route("/games")]
+[Authorize]
 public class GamesController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

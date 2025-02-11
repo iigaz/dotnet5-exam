@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using XoDotNet.DataAccess;
 using XoDotNet.DataAccess.Configuration;
 using XoDotNet.DataAccess.ServicesExtensions;
 using XoDotNet.Features.Helpers;
@@ -14,7 +16,7 @@ using XoDotNet.Mediator.DependencyInjectionExtensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMediator(AssemblyReference.Assembly);
-builder.Services.AddAuth(builder.Configuration.Get<JwtConfig>()!);
+builder.Services.AddAuth(builder.Configuration.GetSection("Jwt").Get<JwtConfig>()!);
 
 builder.Services.AddFeatures();
 builder.Services.AddDatabases(
@@ -39,7 +41,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(policy =>
     policy
-        .AllowCredentials()
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowAnyOrigin());
@@ -50,5 +51,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapHub<GamesHub>("/games/hub");
+
+if (Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true")
+{
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<AppDbContext>();
+    if (context.Database.GetPendingMigrations().Any()) context.Database.Migrate();
+}
 
 app.Run();

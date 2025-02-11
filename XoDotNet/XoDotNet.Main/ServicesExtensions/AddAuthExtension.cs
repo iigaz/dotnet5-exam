@@ -1,6 +1,5 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using XoDotNet.Main.Abstractions;
 using XoDotNet.Main.Configuration;
@@ -46,13 +45,6 @@ public static class AddAuthExtension
                     }
                 };
             });
-
-        var requireAuthPolicy = new AuthorizationPolicyBuilder()
-            .RequireAuthenticatedUser()
-            .Build();
-
-        services.AddAuthorizationBuilder()
-            .SetDefaultPolicy(requireAuthPolicy);
 
         services.AddSingleton<IJwtIssuerService>(_ => new JwtIssuerService(jwtConfig));
         return services;
