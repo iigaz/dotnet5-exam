@@ -17,8 +17,12 @@ public static class AddEventsExtension
             x.AddConsumer<PlaceMarkConsumer>();
             x.AddConsumer<UpdateStateConsumer>();
 
+            x.AddDelayedMessageScheduler();
+
             x.UsingRabbitMq((context, cfg) =>
             {
+                cfg.UseDelayedMessageScheduler();
+
                 cfg.Host(config.Hostname, h =>
                 {
                     h.Username(config.Username);

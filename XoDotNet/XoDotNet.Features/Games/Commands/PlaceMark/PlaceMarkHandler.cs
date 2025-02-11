@@ -21,8 +21,10 @@ public class PlaceMarkHandler(
         var field = gameState.Field.ToCharArray();
         if (field.Length != 9)
             throw new ArgumentException("Field was not 3x3");
+        if (gameState.Player1 == null || gameState.Player2 == null)
+            return Result<PlaceMarkDto>.Failure("Some players are missing.");
 
-        if (gameState.Player1?.Username == user.Username && gameState.Turn == 1)
+        if (gameState.Player1.Username == user.Username && gameState.Turn == 1)
         {
             var indexer = request.Y * 3 + request.X;
             if (field[indexer] != '-')
@@ -34,7 +36,7 @@ public class PlaceMarkHandler(
             return Result<PlaceMarkDto>.Success(new PlaceMarkDto(fieldCheck));
         }
 
-        if (gameState.Player2?.Username == user.Username && gameState.Turn == 2)
+        if (gameState.Player2.Username == user.Username && gameState.Turn == 2)
         {
             var indexer = request.Y * 3 + request.X;
             if (field[indexer] != '-')

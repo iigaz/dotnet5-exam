@@ -42,6 +42,8 @@ public class UserRepository(AppDbContext db, IMongoCollection<UserRating> userRa
 
     public async Task UpdateUserRating(UserRating userRating)
     {
-        throw new NotImplementedException();
+        await userRatingCollection.ReplaceOneAsync(
+            rating => rating.Username == userRating.Username && rating.Id == userRating.Id,
+            userRating);
     }
 }

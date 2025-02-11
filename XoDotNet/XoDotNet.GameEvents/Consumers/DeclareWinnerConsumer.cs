@@ -11,7 +11,7 @@ public class DeclareWinnerConsumer(IMediator mediator) : IConsumer<DeclareWinner
     {
         var result = await mediator.Send(new DeclareWinnerCommand(context.Message.GameId, context.Message.Winner));
         if (result.IsSuccess)
-            throw new NotImplementedException();
-        // TODO: send declarewinner message to hub
+            // TODO: send declare winner message to hub
+            await context.SchedulePublish(DateTime.Now.AddSeconds(3), new RestartGameEvent(context.Message.GameId));
     }
 }

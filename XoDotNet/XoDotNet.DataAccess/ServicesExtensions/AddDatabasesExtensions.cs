@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using XoDotNet.DataAccess.Configuration;
@@ -37,6 +38,9 @@ public static class AddDatabasesExtensions
             return mongoDatabase.GetCollection<UserRating>(
                 mongoDbConfig.UserRatingCollectionName);
         });
+
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(postgresConnectionString));
         return services;
     }
 }
