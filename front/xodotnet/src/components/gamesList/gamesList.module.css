@@ -5,4 +5,5 @@
     flex-direction: column;
     height: 100%;
     background-color: var(--accent-color);
+    overflow-y: auto;
 }

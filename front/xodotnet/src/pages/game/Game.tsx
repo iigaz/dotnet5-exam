@@ -12,6 +12,8 @@ import useSignalR from "../../hooks/useSignalR.ts";
 import Config from "../../config/config.ts";
 import { gamesHubClientConnection } from "../../components/game/gamesHubClientConnection.ts";
 import WinnerMessage from "../../components/game/winnerMessage.tsx";
+import Button from "../../components/general/button/button.tsx";
+import exitIcon from "../../assets/exitIcon.svg";
 
 const PLAYER_1 = "x";
 const PLAYER_2 = "o";
@@ -118,6 +120,13 @@ function Game() {
     setTiles(newTiles);
   };
 
+  const handleExit = () => {
+    if (!connection) return;
+    const gamesClient = gamesHubClientConnection(connection);
+    gamesClient.send.Leave(id!);
+    navigator("/games");
+  };
+
   return (
     <div className={classes.container}>
       {gameState === null ? (
@@ -179,6 +188,14 @@ function Game() {
         tileStates={tiles}
         strikeClass={strikeClass}
       />
+      <div className={classes.exitButtonContainer}>
+        <Button onClick={handleExit}>
+          <div className={classes.exitButton}>
+            <span>Выйти</span>
+            <img src={exitIcon} className={classes.exitIcon} />
+          </div>
+        </Button>
+      </div>
     </div>
   );
 }

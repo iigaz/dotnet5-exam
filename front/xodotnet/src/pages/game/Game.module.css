@@ -36,3 +36,22 @@
 .userInfo p{
     margin: 8px 0 8px 0;
 }
+
+.exitButtonContainer{
+    position: absolute;
+    left: 40px;
+    bottom: 40px;
+}
+
+.exitButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.exitIcon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}

@@ -46,11 +46,11 @@ function MainPage() {
 
   useEffect(() => {
     api
-      .get("/games?page=1&pagesize=20")
+      .get("/games?page=1&pagesize=5")
       .then((response) => setGamesFirstPage(response.data))
       .catch((error: AxiosError<any, any>) => {
         if (!error.response) {
-          setGamesFirstPage(tempList);
+          setGamesFirstPage(null);
         } else if (error.response.status === 401) {
           navigator("/auth");
         }

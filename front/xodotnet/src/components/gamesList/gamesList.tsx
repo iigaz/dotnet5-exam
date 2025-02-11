@@ -15,7 +15,7 @@ function GamesList(props: GamesListProps) {
 
     setLoading(true);
     try {
-      const response = await api.get(`/games?page=${page}&pagesize=20`);
+      const response = await api.get(`/games?page=${page}&pagesize=5`);
 
       setGames((prev) => [...prev, ...response.data.content]);
       setMaxPage(response.data.maxPage);
