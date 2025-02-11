@@ -2,9 +2,12 @@ using XoDotNet.DataAccess.Configuration;
 using XoDotNet.DataAccess.ServicesExtensions;
 using XoDotNet.Features.Helpers;
 using XoDotNet.Features.ServicesExtensions;
+using XoDotNet.GameEvents.Abstractions;
 using XoDotNet.GameEvents.Configurations;
 using XoDotNet.GameEvents.ServicesExtensions;
 using XoDotNet.Main.Configuration;
+using XoDotNet.Main.Hubs;
+using XoDotNet.Main.Services;
 using XoDotNet.Main.ServicesExtensions;
 using XoDotNet.Mediator.DependencyInjectionExtensions;
 
@@ -20,6 +23,8 @@ builder.Services.AddDatabases(
 builder.Services.AddEvents(builder.Configuration.GetSection("RabbitMQ").Get<RabbitMqConfig>()!);
 
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
+builder.Services.AddScoped<IGamesHubSender, GamesHubSender>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -44,5 +49,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<GamesHub>("/games/hub");
 
 app.Run();

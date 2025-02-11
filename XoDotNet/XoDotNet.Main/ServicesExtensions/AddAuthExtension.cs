@@ -32,6 +32,19 @@ public static class AddAuthExtension
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecretKey)),
                     ValidateIssuerSigningKey = true
                 };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) &&
+                            path.StartsWithSegments("/games/hub"))
+                            context.Token = accessToken;
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
         var requireAuthPolicy = new AuthorizationPolicyBuilder()
