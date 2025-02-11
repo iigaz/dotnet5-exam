@@ -13,7 +13,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\XoDotNet.DataAccess\XoDotNet.DataAccess.csproj"/>
         <ProjectReference Include="..\XoDotNet.Features\XoDotNet.Features.csproj"/>
+        <ProjectReference Include="..\XoDotNet.GameEvents\XoDotNet.GameEvents.csproj"/>
         <ProjectReference Include="..\XoDotNet.Mediator\XoDotNet.Mediator.csproj"/>
     </ItemGroup>
 

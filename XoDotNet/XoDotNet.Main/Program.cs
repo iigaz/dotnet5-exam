@@ -1,4 +1,9 @@
+using XoDotNet.DataAccess.Configuration;
+using XoDotNet.DataAccess.ServicesExtensions;
 using XoDotNet.Features.Helpers;
+using XoDotNet.Features.ServicesExtensions;
+using XoDotNet.GameEvents.Configurations;
+using XoDotNet.GameEvents.ServicesExtensions;
 using XoDotNet.Main.Configuration;
 using XoDotNet.Main.ServicesExtensions;
 using XoDotNet.Mediator.DependencyInjectionExtensions;
@@ -7,6 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMediator(AssemblyReference.Assembly);
 builder.Services.AddAuth(builder.Configuration.Get<JwtConfig>()!);
+
+builder.Services.AddFeatures();
+builder.Services.AddDatabases(
+    builder.Configuration.GetSection("MongoDatabase").Get<MongoDbConfig>()!,
+    builder.Configuration.GetConnectionString("MainDatabase")!);
+builder.Services.AddEvents(builder.Configuration.GetSection("RabbitMQ").Get<RabbitMqConfig>()!);
 
 builder.Services.AddControllers();
 
