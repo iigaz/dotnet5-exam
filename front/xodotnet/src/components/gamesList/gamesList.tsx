@@ -17,7 +17,12 @@ function GamesList(props: GamesListProps) {
     try {
       const response = await api.get(`/games?page=${page}&pagesize=5`);
 
-      setGames((prev) => [...prev, ...response.data.content]);
+      setGames((prev) => [
+        ...prev,
+        ...response.data.content.filter(
+          (elem: GameInfoCardProps) => !prev.some((e) => e.id == elem.id)
+        ),
+      ]);
       setMaxPage(response.data.maxPage);
       setPage((prev) => prev + 1);
     } catch (error) {
@@ -33,7 +38,7 @@ function GamesList(props: GamesListProps) {
       (entries) => {
         if (entries[0].isIntersecting) fetchGames();
       },
-      { threshold: 1.0 },
+      { threshold: 1.0 }
     );
 
     if (observerRef.current) observer.observe(observerRef.current);
