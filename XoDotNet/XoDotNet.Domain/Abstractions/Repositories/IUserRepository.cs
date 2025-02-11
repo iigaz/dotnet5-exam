@@ -8,4 +8,5 @@ public interface IUserRepository
     Task CreateUserAsync(User user);
     Task<UserRating?> GetUserWithRatingByUsernameAsync(string username);
     Task<List<UserRating>> GetTopRatingsAsync(int limit);
+    Task UpdateUserRating(UserRating userRating);
 }

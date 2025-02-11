@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XoDotNet.DataAccess", "XoDo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XoDotNet.Mediator", "XoDotNet.Mediator\XoDotNet.Mediator.csproj", "{2CE8662E-A608-4695-9D3E-433CF7733B89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XoDotNet.GameEvents", "XoDotNet.GameEvents\XoDotNet.GameEvents.csproj", "{BD4E1787-808C-4360-9236-CCCF9B5BB7C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{2CE8662E-A608-4695-9D3E-433CF7733B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CE8662E-A608-4695-9D3E-433CF7733B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CE8662E-A608-4695-9D3E-433CF7733B89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD4E1787-808C-4360-9236-CCCF9B5BB7C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD4E1787-808C-4360-9236-CCCF9B5BB7C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD4E1787-808C-4360-9236-CCCF9B5BB7C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD4E1787-808C-4360-9236-CCCF9B5BB7C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

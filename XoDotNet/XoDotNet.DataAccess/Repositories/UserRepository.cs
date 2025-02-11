@@ -39,4 +39,9 @@ public class UserRepository(AppDbContext db, IMongoCollection<UserRating> userRa
             .ToListAsync();
         return users ?? [];
     }
+
+    public async Task UpdateUserRating(UserRating userRating)
+    {
+        throw new NotImplementedException();
+    }
 }

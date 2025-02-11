@@ -9,4 +9,8 @@ public interface IGameRepository
     Task<GameState?> GetGameStateByIdAsync(Guid id);
 
     Task<Game> CreateGameAsync(User creator, int maxRating);
+
+    Task UpdatePlayers(Guid gameId, UserRating? player1, UserRating? player2);
+
+    Task UpdateFieldAndTurn(Guid gameId, string field, int turn);
 }

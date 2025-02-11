@@ -31,4 +31,14 @@ public class GameRepository(AppDbContext db) : IGameRepository
         // TODO: Add game state
         return newGame.Entity;
     }
+
+    public async Task UpdatePlayers(Guid gameId, UserRating? player1, UserRating? player2)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task UpdateFieldAndTurn(Guid gameId, string field, int turn)
+    {
+        throw new NotImplementedException();
+    }
 }
