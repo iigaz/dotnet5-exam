@@ -1,10 +1,11 @@
 import classes from "./Login.module.css";
 import InputField from "../../components/general/inputField/inputField.tsx";
 import Button from "../../components/general/button/button.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../config/axios.ts";
 import { AxiosError } from "axios";
+import checkLoggedIn from "../../helpers/checkLoggedIn.ts";
 
 function Login() {
   const navigator = useNavigate();
@@ -30,6 +31,10 @@ function Login() {
         }
       });
   };
+
+  useEffect(() => {
+    if (checkLoggedIn()) navigator("/games");
+  }, []);
 
   return (
     <div className={classes.container}>
