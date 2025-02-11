@@ -1,3 +1,5 @@
+using XoDotNet.Domain.Enums;
+
 namespace XoDotNet.Domain.Entities;
 
 public class Game
@@ -9,4 +11,6 @@ public class Game
     public DateTime CreatedDateTime { get; set; }
 
     public int MaxRating { get; set; }
+
+    public GameStatus Status { get; set; }
 }

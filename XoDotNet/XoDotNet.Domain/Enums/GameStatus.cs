@@ -1,4 +1,4 @@
-namespace XoDotNet.Features.Games.Queries.GetGames;
+namespace XoDotNet.Domain.Enums;
 
 public enum GameStatus
 {
